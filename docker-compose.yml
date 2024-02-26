@@ -1,0 +1,33 @@
+version: '3.7'
+
+networks:
+  payment_system:
+    name: payment_system
+    driver: bridge
+
+services:
+  tomcat:
+    container_name: transfer-system-tomcat
+    image: tomcat:8.5.99
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/MoneyTransferService-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/MoneyTransferService.war
+    networks:
+      - payment_system
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: transfer-system-postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: transfer_service_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - payment_system
