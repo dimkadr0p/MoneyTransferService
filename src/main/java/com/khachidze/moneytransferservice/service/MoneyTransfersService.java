@@ -17,6 +17,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,9 @@ public class MoneyTransfersService {
 
     public List<MoneyTransfersEntity> getAllMoneyTransfers() {
         return moneyTransfersRepository.findAll();
+    }
+    public List<MoneyTransfersEntity> getHistoryTransaction(String phoneNumber) {
+        return moneyTransfersRepository.findHistoryTransactionByPhoneNumber(phoneNumber);
     }
 
     public void transferMoney(TransferMoneyRequestDto transferMoneyRequestDto) {

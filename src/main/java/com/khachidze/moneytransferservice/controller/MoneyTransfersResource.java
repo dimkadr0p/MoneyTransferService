@@ -1,6 +1,7 @@
 package com.khachidze.moneytransferservice.controller;
 
 import com.khachidze.moneytransferservice.dto.TransferMoneyRequestDto;
+import com.khachidze.moneytransferservice.entity.MoneyTransfersEntity;
 import com.khachidze.moneytransferservice.exception.CommissionOperationException;
 import com.khachidze.moneytransferservice.exception.InsufficientMoneyException;
 import com.khachidze.moneytransferservice.exception.TransferMoneyFailedException;
@@ -11,6 +12,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
+import java.util.Optional;
 
 
 @Path("/transfer")
@@ -33,6 +36,14 @@ public class MoneyTransfersResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
+
+    @GET
+    @Produces("application/json")
+    public Response getHistoryTransaction(@QueryParam("phone") String phoneNumber) {
+        List<MoneyTransfersEntity> transactions = moneyTransfersService.getHistoryTransaction(phoneNumber);
+        return Response.ok(transactions).build();
+    }
+
 
     @GET
     @Path("/all")

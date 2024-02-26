@@ -20,6 +20,14 @@ public class MoneyTransfersRepository {
         });
     }
 
+    public List<MoneyTransfersEntity> findHistoryTransactionByPhoneNumber(String phoneNumber) {
+        return executeInTransaction(entityManager -> {
+            Query query = entityManager.createQuery("SELECT u FROM MoneyTransfersEntity u WHERE u.senderPhone = :phone OR u.receiverPhone = :phone", MoneyTransfersEntity.class);
+            query.setParameter("phone", phoneNumber);
+            return query.getResultList();
+        });
+    }
+
     public MoneyTransfersEntity findById(Long id) {
         return executeInTransaction(entityManager -> entityManager.find(MoneyTransfersEntity.class, id));
     }
