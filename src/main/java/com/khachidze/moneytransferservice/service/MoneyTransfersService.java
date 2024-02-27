@@ -1,7 +1,10 @@
 package com.khachidze.moneytransferservice.service;
 
 
-import com.khachidze.moneytransferservice.dto.*;
+import com.khachidze.moneytransferservice.dto.AmountDto;
+import com.khachidze.moneytransferservice.dto.ResultMoneyTransferDto;
+import com.khachidze.moneytransferservice.dto.TransferMoneyRequestDto;
+import com.khachidze.moneytransferservice.dto.UserDto;
 import com.khachidze.moneytransferservice.entity.MoneyTransfersEntity;
 import com.khachidze.moneytransferservice.enums.TransferStatus;
 import com.khachidze.moneytransferservice.exception.CommissionOperationException;
@@ -17,7 +20,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
